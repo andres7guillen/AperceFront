@@ -1,0 +1,14 @@
+<h2>Nueva Tarea</h2>
+
+<form [formGroup]="form" (ngSubmit)="submit()">
+    <select formControlName="userId" required>
+        <option value="">Select user</option>
+        <option *ngFor="let user of users" [value]="user.id">
+            {{ user.name }}
+        </option>
+    </select>
+
+    <input formControlName="title" placeholder="Títle" />
+
+    <button type="submit">Create</button>
+</form>

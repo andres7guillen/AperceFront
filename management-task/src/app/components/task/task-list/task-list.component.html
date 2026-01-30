@@ -1,0 +1,41 @@
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Lista de Tareas</h2>
+    <button class="btn btn-primary" (click)="navigateToNewTask()">Crear Nueva Tarea</button>
+</div>
+
+<table class="table table-striped mt-3">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">Título</th>
+            <th scope="col">Estado</th>
+            <th scope="col">Usuario</th>
+            <th scope="col">Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        <ng-container *ngIf="tasks$ | async as tasks">
+            @for (task of tasks; track $index)
+            {
+            <tr>
+                <td>{{ task.title }}</td>
+                <td>{{ task.status }}</td>
+                <td>
+                    {{ task.user }}
+                </td>
+                <td>
+                    <button *ngIf="task.status === 'Pending'" class="btn btn-success btn-sm me-2" (click)="start(task)">
+                        Start
+                    </button>
+
+                    <button *ngIf="task.status === 'InProgress'" class="btn btn-primary btn-sm me-2"
+                        (click)="complete(task)">
+                        Complete
+                    </button>
+
+                    <span *ngIf="task.status === 'Done'" class="text-success">Done</span>
+                </td>
+            </tr>
+            }
+        </ng-container>
+    </tbody>
+</table>
